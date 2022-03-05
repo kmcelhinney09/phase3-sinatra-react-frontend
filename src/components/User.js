@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import NavBar from './NavBar'
 
 function User({ user_id, name }) {
 const [userRecipeBoxData, setUserRecipeBoxData] = useState([])
@@ -15,6 +16,7 @@ const [userRecipeBoxData, setUserRecipeBoxData] = useState([])
 
     return (
         <div>
+            <NavBar />
             {userRecipeBoxData.map(recipe => <p>{recipe.recipe_name}</p>)}
         </div>
     )
