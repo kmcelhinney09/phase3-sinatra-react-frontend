@@ -8,18 +8,13 @@ import {
   MDBNavbarLink,
   MDBNavbarToggler,
   MDBCollapse,
-  MDBDropdown,
-  MDBDropdownMenu,
-  MDBDropdownToggle,
-  MDBDropdownItem,
-  MDBDropdownLink
 } from 'mdb-react-ui-kit';
 
-export default function App() {
+function NavBar({user_id, name, loggedIn}) {
   const [showNavRight, setShowNavRight] = useState(false);
 
   return (
-    <MDBNavbar expand='lg' dark bgColor='primary'>
+    <MDBNavbar expand="lg" sticky dark bgColor='primary'>
       <MDBContainer fluid>
         <MDBNavbarToggler
           type='button'
@@ -40,7 +35,7 @@ export default function App() {
               </MDBNavbarLink>
             </MDBNavbarItem>
             <MDBNavbarItem>
-              <MDBNavbarLink href='/'>Link</MDBNavbarLink>
+              {loggedIn? <MDBNavbarLink href={`/users/${user_id}`}>{`Logged in as: ${name}`}</MDBNavbarLink>:null}
             </MDBNavbarItem>
             <MDBNavbarItem>
             </MDBNavbarItem>
@@ -50,3 +45,4 @@ export default function App() {
     </MDBNavbar>
   );
 }
+export default NavBar

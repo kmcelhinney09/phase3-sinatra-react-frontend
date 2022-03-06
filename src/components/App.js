@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Home from './Home';
 import User from './User';
+import NavBar from './NavBar';
+import RecipeByCategory from './RecipeByCategory';
 import { Route, Switch, Redirect } from "react-router-dom";
 
 function App() {
@@ -8,14 +10,20 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false)
 
   return (
-    <Switch>
-      <Route exact path="/">
-        {loggedIn? <Redirect to={`/users/${userData.id}`} /> :<Home setUserData = {setUserData} setLoggedIn={setLoggedIn} />}
-      </Route>
-      <Route exact path={`/users/${userData.id}`}>
-        <User user_id={userData.id} name={userData.name}/>
-      </Route>
-    </Switch>
+    <>
+      <NavBar user_id={userData.id} name={userData.name} loggedIn={loggedIn}/>
+      <Switch>
+        <Route exact path="/">
+          <Home setUserData={setUserData} setLoggedIn={setLoggedIn} />}
+        </Route>
+        <Route exact path="/users/:id">
+          <User user_id={userData.id} name={userData.name} />
+        </Route>
+        <Route path={'/category/:categoryId'}>
+          <RecipeByCategory />
+        </Route>
+      </Switch>
+    </>
   );
 }
 
