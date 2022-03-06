@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Button, Form } from "react-bootstrap"
+import AuthContex from '../context/AuthProvider'
 
 function Login({ setLoggedIn, setUserData, setFormActive }) {
+    const { setAuth } = useContext(AuthContex)
     const [loginFormData, setLoginFormData] = useState({
         login_id: "",
         password: ""
@@ -33,6 +35,7 @@ function Login({ setLoggedIn, setUserData, setFormActive }) {
             .then(res => res.json())
             .then(authenticate => {
                 if (authenticate) {
+                    setAuth(authenticate)
                     setUserData(authenticate);
                     setLoggedIn(true);
                 }
