@@ -18,10 +18,10 @@ function RecipeCard({ recipe_name, serving_size, updated, img_url, category_name
 
     return (
         <MDBCol>
-            <MDBCard style={{ maxWidth: '540px' }}>
+            <MDBCard className='hover-shadow' style={{ maxWidth: '540px'}} alignment='center'>
                 <MDBRow className='g-0'>
                     <MDBCol md='4'>
-                        <MDBCardImage src={`${img_url}`} alt='Image of Food' fluid />
+                        <MDBCardImage src={`${img_url}`} alt='Image of Food' fluid/>
                     </MDBCol>
                     <MDBCol md='8'>
                         <MDBCardBody>

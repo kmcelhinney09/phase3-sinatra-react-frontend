@@ -5,14 +5,13 @@ import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import './index.css';
 import { AuthProvider } from './context/AuthProvider';
 import App from './components/App';
-import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
-  <AuthProvider>
-    <BrowserRouter>
+  <>
+    <AuthProvider>
       <App />
-    </BrowserRouter>
-  </AuthProvider>,
+    </AuthProvider>
+  </>,
   document.getElementById('root')
 );
 

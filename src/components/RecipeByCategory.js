@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import NavBar from './NavBar'
 import RecipeCard from './RecipeCard'
 import SideBar from './SideBar';
 import { MDBRow } from 'mdb-react-ui-kit';
@@ -7,7 +6,6 @@ import { useParams } from "react-router-dom"
 
 function RecipeByCategory() {
     let { categoryId } = useParams();
-    
     const [recipeByCategory, setrecipeByCategory] = useState([])
 
     useEffect(() => {
@@ -21,7 +19,6 @@ function RecipeByCategory() {
 
     return (
         <div>
-            
             <div className='d-flex'>
                 <div className='p2 w-20'>
                     <SideBar />
@@ -31,11 +28,11 @@ function RecipeByCategory() {
                         {recipeByCategory.map(recipe => <RecipeCard key={recipe.id}
                             recipe_name={recipe.recipe_name}
                             serving_size={recipe.serving_size}
-                            cal_per_serving={recipe.cal_per_serving}
                             updated={recipe.updated_at}
                             img_url={recipe.img_url}
                             category_name={recipe.category.category_name}
                             ingredients_list={recipe.recipe_ingredients}
+                            cal_per_serving={recipe.cal_per_serving}
                         />)}
                     </MDBRow>
                 </div>

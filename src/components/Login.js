@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Button, Form } from "react-bootstrap"
-import AuthContex from '../context/AuthProvider'
+import { UserAuth } from '../context/AuthProvider'
 
-function Login({ setLoggedIn, setUserData, setFormActive }) {
-    const { setAuth } = useContext(AuthContex)
+
+function Login({ setFormActive }) {
+    const { setUser, signout } = UserAuth();
     const [loginFormData, setLoginFormData] = useState({
         login_id: "",
         password: ""
@@ -34,13 +35,14 @@ function Login({ setLoggedIn, setUserData, setFormActive }) {
         })
             .then(res => res.json())
             .then(authenticate => {
+                console.log(authenticate.id)
                 if (authenticate) {
-                    setAuth(authenticate)
-                    setUserData(authenticate);
-                    setLoggedIn(true);
+                    setUser(authenticate)
+                    sessionStorage.setItem('user', JSON.stringify(authenticate))
                 }
-
             })
+            .catch(error => console.log(error))
+
         setLoginFormData({ login_id: "", password: "" });
     }
 

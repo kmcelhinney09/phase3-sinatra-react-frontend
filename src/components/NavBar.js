@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { UserAuth } from '../context/AuthProvider'
 import {
   MDBNavbar,
   MDBContainer,
@@ -8,13 +9,21 @@ import {
   MDBNavbarLink,
   MDBNavbarToggler,
   MDBCollapse,
+  MDBNavbarBrand
 } from 'mdb-react-ui-kit';
 
-function NavBar({user_id, name, loggedIn}) {
+function NavBar() {
   const [showNavRight, setShowNavRight] = useState(false);
+  const { user, setUser } = UserAuth()
+
+  function handleLogout() {
+    setUser(null)
+    sessionStorage.clear()
+  }
 
   return (
     <MDBNavbar expand="lg" sticky dark bgColor='primary'>
+      {console.log(user)}
       <MDBContainer fluid>
         <MDBNavbarToggler
           type='button'
@@ -28,15 +37,15 @@ function NavBar({user_id, name, loggedIn}) {
         </MDBNavbarToggler>
 
         <MDBCollapse navbar show={showNavRight}>
+          <MDBNavbarBrand>Mama's Recipe Box</MDBNavbarBrand>
           <MDBNavbarNav right fullWidth={false} className='mb-2 mb-lg-0'>
             <MDBNavbarItem>
-              <MDBNavbarLink active aria-current='page' href='/'>
-                Home
-              </MDBNavbarLink>
+              {user? null:<MDBNavbarLink active aria-current='page' href='/'> Home </MDBNavbarLink>}
             </MDBNavbarItem>
             <MDBNavbarItem>
-              {loggedIn? <MDBNavbarLink href={`/users/${user_id}`}>{`Logged in as: ${name}`}</MDBNavbarLink>:null}
+              {user ? <MDBNavbarLink active href={`/users/${user.id}`}>{`Logged in as: ${user.name}`}</MDBNavbarLink> : null}
             </MDBNavbarItem>
+            {user ? <MDBNavbarLink onClick={handleLogout}>Logout</MDBNavbarLink> : null}
             <MDBNavbarItem>
             </MDBNavbarItem>
           </MDBNavbarNav>

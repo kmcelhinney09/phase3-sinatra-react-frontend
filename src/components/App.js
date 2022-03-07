@@ -1,28 +1,36 @@
-import { useState } from 'react';
+import { UserAuth } from '../context/AuthProvider'
 import Home from './Home';
 import User from './User';
 import NavBar from './NavBar';
 import RecipeByCategory from './RecipeByCategory';
-import { Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { useEffect } from 'react';
 
 function App() {
-  const [userData, setUserData] = useState([])
-  const [loggedIn, setLoggedIn] = useState(false)
+  const { user, setUser } = UserAuth()
+
+  useEffect(() => {
+    let userData = JSON.parse(sessionStorage.getItem('user'))
+    setUser(userData)
+  }, [setUser])
 
   return (
     <>
-      <NavBar user_id={userData.id} name={userData.name} loggedIn={loggedIn}/>
-      <Switch>
-        <Route exact path="/">
-          <Home setUserData={setUserData} setLoggedIn={setLoggedIn} />}
-        </Route>
-        <Route exact path="/users/:id">
-          <User user_id={userData.id} name={userData.name} />
-        </Route>
-        <Route path={'/category/:categoryId'}>
-          <RecipeByCategory />
-        </Route>
-      </Switch>
+      {console.log(user)}
+      <BrowserRouter>
+        <NavBar />
+        <Switch>
+          <Route exact path="/">
+            {user ? <Redirect to={`/users/${user.id}`} /> : <Home />}
+          </Route>
+          <Route exact path="/users/:id">
+            {user ? <User user_id={user.id} name={user.name} /> : <Home />}
+          </Route>
+          <Route path={'/category/:categoryId'}>
+            <RecipeByCategory />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </>
   );
 }

@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { Button, Form, Alert } from "react-bootstrap"
+import { UserAuth } from '../context/AuthProvider'
 
-function CreateNew({ setLoggedIn, setUserData, setFormActive }) {
+function CreateNew({ setFormActive }) {
+    const { setAuth } = UserAuth()
     const [showAlert, setShowAlert] = useState(false)
     const [alertMessage, setAlertMessage] = useState("")
     const [createFormData, setCreateFormData] = useState({
@@ -50,13 +52,8 @@ function CreateNew({ setLoggedIn, setUserData, setFormActive }) {
             .then(res => res.json())
             .then(userData => {
                 if (userData.id) {
-                    setUserData(userData);
-                    setLoggedIn(true);
+                    setAuth(userData);
                     setCreateFormData({ name: "", login_id: "", password: "" });
-                } else {
-                    setAlertMessage(userData.error)
-                    setShowAlert(true)
-                    setCreateFormData({ ...createFormData, login_id: "" });
                 }
             })
 

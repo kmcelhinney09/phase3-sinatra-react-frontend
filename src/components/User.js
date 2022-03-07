@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import NavBar from './NavBar'
 import RecipeCard from './RecipeCard'
 import SideBar from './SideBar';
 import { MDBRow } from 'mdb-react-ui-kit';
