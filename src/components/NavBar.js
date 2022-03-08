@@ -23,7 +23,6 @@ function NavBar() {
 
   return (
     <MDBNavbar expand="lg" sticky dark bgColor='primary' className='py-3'>
-      {console.log(user)}
       <MDBContainer fluid>
         <MDBNavbarToggler
           type='button'

@@ -2,8 +2,9 @@ import { UserAuth } from '../context/AuthProvider'
 import Home from './Home';
 import User from './User';
 import NavBar from './NavBar';
-import SideBar from './SideBar'
+import RecipeView from './RecipeView';
 import RecipeByCategory from './RecipeByCategory';
+import RecipeByIngredient from './RecipeByIngredient'
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { useEffect } from 'react';
 
@@ -17,7 +18,6 @@ function App() {
 
   return (
     <>
-      {console.log(user)}
       <BrowserRouter>
         {user ? <NavBar /> : null}
         <Switch>
@@ -29,6 +29,12 @@ function App() {
           </Route>
           <Route path={'/category/:categoryId'}>
             <RecipeByCategory />
+          </Route>
+          <Route path={'/recipe/:recipeId'}>
+            <RecipeView />
+          </Route>
+          <Route path={'/ingredient/:ingredientName'}>
+            <RecipeByIngredient />
           </Route>
         </Switch>
       </BrowserRouter>

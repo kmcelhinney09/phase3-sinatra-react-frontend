@@ -4,7 +4,7 @@ import { UserAuth } from '../context/AuthProvider'
 
 
 function Login({ setFormActive }) {
-    const { setUser, signout } = UserAuth();
+    const { setUser } = UserAuth();
     const [loginFormData, setLoginFormData] = useState({
         login_id: "",
         password: ""
@@ -35,7 +35,6 @@ function Login({ setFormActive }) {
         })
             .then(res => res.json())
             .then(authenticate => {
-                console.log(authenticate.id)
                 if (authenticate) {
                     setUser(authenticate)
                     sessionStorage.setItem('user', JSON.stringify(authenticate))

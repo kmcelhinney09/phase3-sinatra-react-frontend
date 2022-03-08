@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from "react";
-import RecipeCard from "./RecipeCard";
-import SideBar from "./SideBar";
-import { Container, Row, Col } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from 'react'
+import RecipeCard from './RecipeCard'
+import SideBar from './SideBar';
+import { Container, Row, Col, } from 'react-bootstrap'
+import { useParams } from "react-router-dom"
 
-function RecipeByCategory() {
-  let { categoryId } = useParams();
-  const [recipeByCategory, setrecipeByCategory] = useState([]);
+function RecipeByIngredient() {
+    let { ingredientName } = useParams();
+    const [recipeByIngredient, setrecipeByIngredient] = useState([])
+    useEffect(() => {
+        fetch(`http://localhost:9292/recipes/ingredient/${ingredientName}`)
+            .then(res => res.json())
+            .then((ingredientData) => {
+              setrecipeByIngredient(ingredientData)
+            })
+            .catch(error => console.log(error))
+    }, [ingredientName])
 
-  useEffect(() => {
-    fetch(`http://localhost:9292/categories/${categoryId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setrecipeByCategory(data);
-      });
-  }, [categoryId]);
-
-  return (
-    <Container fluid>
+    return (
+        <Container fluid>
       <Row className="show-grid">
         <Col md={2}>
           <SideBar />
@@ -26,7 +26,7 @@ function RecipeByCategory() {
           <Row className="show-grid">
             <Col lg={12}>
               <Row className="show-grid">
-                {recipeByCategory.map((recipe) => (
+                {recipeByIngredient.map((recipe) => (
                   <RecipeCard
                     key={recipe.id}
                     recipe_name={recipe.recipe_name}
@@ -44,7 +44,7 @@ function RecipeByCategory() {
         </Col>
       </Row>
     </Container>
-  );
+    )
 }
 
-export default RecipeByCategory;
+export default RecipeByIngredient

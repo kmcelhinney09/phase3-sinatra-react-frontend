@@ -7,18 +7,16 @@ function User({ user_id, name }) {
   const [userRecipeBoxData, setUserRecipeBoxData] = useState([]);
 
   useEffect(() => {
-    console.log(user_id);
     fetch(`http://localhost:9292/users/${user_id}/recipe_box`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUserRecipeBoxData(data);
       });
   }, [user_id]);
 
   return (
     <Container fluid>
-      <Row className="show-grid" border>
+      <Row className="show-grid">
         <Col md={2}>
           <SideBar />
         </Col>
@@ -36,6 +34,7 @@ function User({ user_id, name }) {
                     category_name={recipe.category.category_name}
                     ingredients_list={recipe.recipe_ingredients}
                     cal_per_serving={recipe.cal_per_serving}
+                    recipe_id={recipe.id}
                   />
                 ))}
               </Row>
