@@ -2,6 +2,7 @@ import { UserAuth } from '../context/AuthProvider'
 import Home from './Home';
 import User from './User';
 import NavBar from './NavBar';
+import SideBar from './SideBar'
 import RecipeByCategory from './RecipeByCategory';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { useEffect } from 'react';
@@ -18,7 +19,7 @@ function App() {
     <>
       {console.log(user)}
       <BrowserRouter>
-        <NavBar />
+        {user ? <NavBar /> : null}
         <Switch>
           <Route exact path="/">
             {user ? <Redirect to={`/users/${user.id}`} /> : <Home />}

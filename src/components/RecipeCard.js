@@ -1,49 +1,58 @@
-import React from 'react';
-import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardImage, MDBRow, MDBCol } from 'mdb-react-ui-kit';
+import { Row, Col, Card } from "react-bootstrap";
 
-function RecipeCard({ recipe_name, serving_size, updated, img_url, category_name, ingredients_list, cal_per_serving }) {
+function RecipeCard({
+  recipe_name,
+  serving_size,
+  updated,
+  img_url,
+  category_name,
+  ingredients_list,
+  cal_per_serving,
+}) {
+  function msToTime(ms) {
+    let seconds = (ms / 1000).toFixed(1);
+    let minutes = (ms / (1000 * 60)).toFixed(1);
+    let hours = (ms / (1000 * 60 * 60)).toFixed(1);
+    let days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
+    if (seconds < 60) return seconds + " Sec";
+    else if (minutes < 60) return minutes + " Min";
+    else if (hours < 24) return hours + " Hrs";
+    else return days + " Days";
+  }
 
-    function msToTime(ms) {
-        let seconds = (ms / 1000).toFixed(1);
-        let minutes = (ms / (1000 * 60)).toFixed(1);
-        let hours = (ms / (1000 * 60 * 60)).toFixed(1);
-        let days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
-        if (seconds < 60) return seconds + " Sec";
-        else if (minutes < 60) return minutes + " Min";
-        else if (hours < 24) return hours + " Hrs";
-        else return days + " Days"
-    }
+  let timeSinceEdit = msToTime(Date.now() - Date.parse(updated));
 
-    let timeSinceEdit = msToTime(Date.now() - Date.parse(updated))
-
-    return (
-        <MDBCol>
-            <MDBCard className='hover-shadow' style={{ maxWidth: '540px', height: "280px" }} shadow='10' alignment='center'>
-                <MDBRow className='g-4'>
-                    <MDBCol md='4'>
-                        <MDBCardImage src={`${img_url}`} alt='Image of Food' fluid/>
-                    </MDBCol>
-                    <MDBCol md='8'>
-                        <MDBCardBody>
-                            <MDBCardTitle>{recipe_name}</MDBCardTitle>
-                            <MDBCardText>
-                                {`Serving Size: ${serving_size} \n`}<br />
-                                <small className='text-muted'>{`Cals per serving: ${cal_per_serving}`}</small>
-                                <br />
-                                <small className='text-muted'>{`Number of ingredients: ${ingredients_list.length}`}</small>
-                            </MDBCardText>
-                            <MDBCardText>
-                                {`Food category: ${category_name}`}
-                            </MDBCardText>
-                            <MDBCardText>
-                                <small className='text-muted'>{`Last Edited: ${timeSinceEdit} ago`}</small>
-                            </MDBCardText>
-                        </MDBCardBody>
-                    </MDBCol>
-                </MDBRow>
-            </MDBCard>
-        </MDBCol>
-    );
+  return (
+    <Col md={4}>
+      <Card className="hover-shadow">
+        <Row className="g-0">
+          <Col md={4}>
+            <Card.Img src={`${img_url}`} />
+          </Col>
+          <Col md={8}>
+            <Card.Body className="text-center">
+              <Card.Title className="text-primary">{recipe_name}</Card.Title>
+              <Card.Subtitle className="text-success">
+                {category_name}
+              </Card.Subtitle>
+              <Card.Text>
+                {`Serving Size: ${serving_size}`}
+                <br />
+                <small className="text-muted">{`Calories per Serving: ${cal_per_serving}`}</small>
+              </Card.Text>
+              <Card.Text>
+                <small className="text-muted">{`Number of ingredients: ${ingredients_list.length}`}</small>
+                <br />
+                <br />
+                <br />
+              </Card.Text>
+            </Card.Body>
+            <Card.Footer>{`Last Edited: ${timeSinceEdit}`}</Card.Footer>
+          </Col>
+        </Row>
+      </Card>
+    </Col>
+  );
 }
 
-export default RecipeCard
+export default RecipeCard;

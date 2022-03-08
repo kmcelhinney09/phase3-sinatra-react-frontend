@@ -15,7 +15,7 @@ function SideBar() {
     
     return (
         <Nav defaultActiveKey="/home" className="flex-column">
-            {categoryList.map(category => <Nav.Link key={category.id} href={`/category/${category.id}`}>{category.category_name}</Nav.Link>)}
+            {categoryList.map(category => <Nav.Link key={category.id} href={`/category/${category.id}`} className="text-secondary">{category.category_name}</Nav.Link>)}
         </Nav>
     )
 }
