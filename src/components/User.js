@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CardMapping from "./CardMapping";
 
-function User({ user_id, name }) {
+function User({ user_id, name, boxReset, setBoxRest }) {
   const [userRecipeBoxData, setUserRecipeBoxData] = useState([]);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function User({ user_id, name }) {
         });
         sessionStorage.setItem('box',JSON.stringify(userRecipesIds))
       });
-  }, [user_id]);
+  }, [user_id, boxReset]);
 
   useEffect(() => {
       fetch(`http://localhost:9292/users/${user_id}/recipes`)
@@ -25,12 +25,12 @@ function User({ user_id, name }) {
           recipes.forEach(recipe => userOwnedRecipes.push(recipe.id))
           sessionStorage.setItem('userOwned',JSON.stringify(userOwnedRecipes))
       })
-  },[])
+  },[user_id, boxReset])
   
   return (
       <>
       <h1 className="text-center">{`${name}'s Recipe Box`}</h1>
-      <CardMapping recipeArray={userRecipeBoxData}/>
+      <CardMapping recipeArray={userRecipeBoxData} boxReset={boxReset} setBoxRest={setBoxRest} />
       </>
   );
 }

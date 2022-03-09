@@ -12,6 +12,7 @@ import RecipeByIngredient from './RecipeByIngredient'
 
 function App() {
   const { user, setUser } = UserAuth()
+  const [boxReset, setBoxRest] = useState(false)
 
   useEffect(() => {
     let userData = JSON.parse(sessionStorage.getItem('user'))
@@ -27,16 +28,16 @@ function App() {
             {user ? <Redirect to={`/users/${user.id}`} /> : <Home />}
           </Route>
           <Route exact path="/users/:id">
-            {user ? <User user_id={user.id} name={user.name} /> : <Home />}
+            {user ? <User user_id={user.id} name={user.name} boxReset={boxReset} setBoxRest={setBoxRest}/> : <Home />}
           </Route>
           <Route path={'/category/:categoryId'}>
-            <RecipeByCategory />
+            <RecipeByCategory boxReset={boxReset} setBoxRest={setBoxRest}/>
           </Route>
           <Route path={'/recipe/:recipeId'}>
             <RecipeView />
           </Route>
           <Route path={'/ingredient/:ingredientName'}>
-            <RecipeByIngredient />
+            <RecipeByIngredient boxReset={boxReset} setBoxRest={setBoxRest}/>
           </Route>
         </Switch>
       </BrowserRouter>

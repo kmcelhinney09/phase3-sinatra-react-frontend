@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CardMapping from "./CardMapping";
 
-function RecipeByCategory() {
+function RecipeByCategory(boxReset,setBoxRest) {
   let { categoryId } = useParams();
   const [recipeByCategory, setrecipeByCategory] = useState([]);
 
@@ -19,6 +19,8 @@ function RecipeByCategory() {
       <h1 className="text-center">Recipes By Category</h1>
       <CardMapping
         recipeArray={recipeByCategory}
+        boxReset={boxReset} 
+        setBoxRest={setBoxRest}
       />
     </>
   );

@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import RecipeCard from "./RecipeCard";
 import SideBar from "./SideBar";
 
-function CardMapping({ recipeArray }) {
+function CardMapping({ recipeArray, boxReset, setBoxRest}) {
   let removeButton = false;
   let addButton = false;
   let editButton = false;
@@ -20,14 +20,14 @@ function CardMapping({ recipeArray }) {
             <Col lg={12}>
               <Row className="show-grid">
                 {recipeArray.map((recipe) => {
-                  if (typeof userBox != "undefined") {
+                  if (typeof userBox != "undefined" && userBox) {
                     if (userBox.includes(recipe.id)) {
                       removeButton = true;
                     } else {
                       addButton = true;
                     }
                   }
-                  if (typeof userOwned != "undefined") {
+                  if (typeof userOwned != "undefined" && userOwned) {
                     if (userOwned.includes(recipe.id)) {
                       editButton = true;
                     }else{
@@ -49,6 +49,8 @@ function CardMapping({ recipeArray }) {
                       removeButton={removeButton}
                       addButton={addButton}
                       editButton={editButton}
+                      boxReset={boxReset} 
+                      setBoxRest={setBoxRest}
                     />
                   );
                 })}

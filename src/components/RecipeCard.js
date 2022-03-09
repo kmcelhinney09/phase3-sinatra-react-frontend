@@ -13,10 +13,13 @@ function RecipeCard({
   recipe_id,
   removeButton,
   addButton,
-  editButton
+  editButton,
+  boxReset,
+  setBoxRest,
 }) {
   const history = useHistory();
-    
+  const user = JSON.parse(sessionStorage.getItem("user"));
+
   function msToTime(ms) {
     let seconds = (ms / 1000).toFixed(1);
     let minutes = (ms / (1000 * 60)).toFixed(1);
@@ -35,23 +38,34 @@ function RecipeCard({
     history.push(pushed_address);
   }
 
-  function handleAdd(id){
-      
+  function handleAdd(id) {
+    fetch(`http://localhost:9292/users/${user.id}/recipe_box`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ recipe_id: id }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        const pushed_address = `/users/${id}`;
+        history.push(pushed_address);        
+      });
   }
 
   return (
     <Col md={4}>
-      <Card
-        className="hover-shadow"
-        onClick={() => handleClick(recipe_id)}
-        style={{ cursor: "pointer" }}
-      >
+      <Card className="hover-shadow" style={{ cursor: "pointer" }}>
         <Row className="g-0">
           <Col md={4}>
             <Card.Img src={`${img_url}`} />
           </Col>
           <Col md={8}>
-            <Card.Body className="text-center">
+            <Card.Body
+              className="text-center"
+              onClick={() => handleClick(recipe_id)}
+            >
               <Card.Title className="text-primary">{recipe_name}</Card.Title>
               <Card.Subtitle className="text-success">
                 {category_name}
@@ -71,7 +85,12 @@ function RecipeCard({
             <Card.Footer>
               <ButtonGroup>
                 {addButton ? (
-                  <Button variant="outline-success" onClick={() => handleAdd(recipe_id)}>Add</Button>
+                  <Button
+                    variant="outline-success"
+                    onClick={() => handleAdd(recipe_id)}
+                  >
+                    Add
+                  </Button>
                 ) : null}
                 {editButton ? (
                   <Button variant="outline-success">Edit</Button>
