@@ -1,10 +1,23 @@
-import { Row, Col, Card } from "react-bootstrap";
-import { useHistory } from 'react-router-dom'
+import { useEffect, useState } from "react";
+import { Row, Col, Card, ButtonGroup, Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
-function RecipeCard({ recipe_name, serving_size, updated, img_url, category_name, ingredients_list, cal_per_serving, recipe_id }) {
-  const history = useHistory()
-
-    function msToTime(ms) {
+function RecipeCard({
+  recipe_name,
+  serving_size,
+  updated,
+  img_url,
+  category_name,
+  ingredients_list,
+  cal_per_serving,
+  recipe_id,
+  removeButton,
+  addButton,
+  editButton
+}) {
+  const history = useHistory();
+    
+  function msToTime(ms) {
     let seconds = (ms / 1000).toFixed(1);
     let minutes = (ms / (1000 * 60)).toFixed(1);
     let hours = (ms / (1000 * 60 * 60)).toFixed(1);
@@ -17,14 +30,22 @@ function RecipeCard({ recipe_name, serving_size, updated, img_url, category_name
 
   let timeSinceEdit = msToTime(Date.now() - Date.parse(updated));
 
-  function handleClick(id){
-        const pushed_address = `/recipe/${id}`
-        history.push(pushed_address)
+  function handleClick(id) {
+    const pushed_address = `/recipe/${id}`;
+    history.push(pushed_address);
+  }
+
+  function handleAdd(id){
+      
   }
 
   return (
     <Col md={4}>
-      <Card className="hover-shadow" onClick={() => handleClick(recipe_id)} style={{ cursor: "pointer" }}>
+      <Card
+        className="hover-shadow"
+        onClick={() => handleClick(recipe_id)}
+        style={{ cursor: "pointer" }}
+      >
         <Row className="g-0">
           <Col md={4}>
             <Card.Img src={`${img_url}`} />
@@ -47,7 +68,21 @@ function RecipeCard({ recipe_name, serving_size, updated, img_url, category_name
                 <br />
               </Card.Text>
             </Card.Body>
-            <Card.Footer>{`Last Edited: ${timeSinceEdit}`}</Card.Footer>
+            <Card.Footer>
+              <ButtonGroup>
+                {addButton ? (
+                  <Button variant="outline-success" onClick={() => handleAdd(recipe_id)}>Add</Button>
+                ) : null}
+                {editButton ? (
+                  <Button variant="outline-success">Edit</Button>
+                ) : null}
+                {removeButton ? (
+                  <Button variant="outline-success">Remove</Button>
+                ) : null}
+              </ButtonGroup>
+              <br />
+              {`Last Edited: ${timeSinceEdit}`}
+            </Card.Footer>
           </Col>
         </Row>
       </Card>

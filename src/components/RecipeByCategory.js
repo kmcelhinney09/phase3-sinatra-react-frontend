@@ -15,7 +15,12 @@ function RecipeByCategory() {
   }, [categoryId]);
 
   return (
-    <CardMapping recipeArray={recipeByCategory} />
+    <>
+      <h1 className="text-center">Recipes By Category</h1>
+      <CardMapping
+        recipeArray={recipeByCategory}
+      />
+    </>
   );
 }
 

@@ -1,12 +1,14 @@
+import { useEffect, useState} from 'react';
 import { UserAuth } from '../context/AuthProvider'
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Home from './Home';
 import User from './User';
 import NavBar from './NavBar';
 import RecipeView from './RecipeView';
 import RecipeByCategory from './RecipeByCategory';
 import RecipeByIngredient from './RecipeByIngredient'
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import { useEffect } from 'react';
+
+
 
 function App() {
   const { user, setUser } = UserAuth()
