@@ -11,14 +11,14 @@ function CardMapping({ recipeArray, boxReset, setBoxRest}) {
   let userOwned = JSON.parse(sessionStorage.getItem("userOwned"));
   return (
     <Container fluid>
-      <Row className="show-grid">
+      <Row>
         <Col md={2}>
           <SideBar />
         </Col>
         <Col md={10}>
-          <Row className="show-grid">
+          <Row >
             <Col lg={12}>
-              <Row className="show-grid">
+              <Row>
                 {recipeArray.map((recipe) => {
                   if (typeof userBox != "undefined" && userBox) {
                     if (userBox.includes(recipe.id)) {
