@@ -39,9 +39,9 @@ function RecipeView() {
   }, []);
 
   return (
-    <Container fluid className="border border-primary border-2">
-      <Row >
-        <Col md={3}>
+    <Container fluid>
+      <Row>
+        <Col md={2}>
           <SideBar />
         </Col>
         <Col>
@@ -49,14 +49,17 @@ function RecipeView() {
             <Col>
               <Row>
                 <h1 className="text-center">{recipeData.recipe_name}</h1>
-                <Row md="auto" className="border border-secondary border-2">
-                  <Col className="border border-success border-2">
-                    <img src={recipeData.img_url} height="400"></img>
+                <Row md="auto">
+                  <Col md={4}>
+                    <img
+                      src={recipeData.img_url}
+                      height="500"
+                      width="auto"
+                    ></img>
                   </Col>
-                  <Col md={10}
-                  className="border border-success border-2">
+                  <Col md={8}>
                     <Row md="auto">
-                      <Col md={12} className="border border-warning border-2">
+                      <Col md={12}>
                         <ListGroup>
                           <ListGroup.Item
                             variant="secondary"
@@ -80,9 +83,16 @@ function RecipeView() {
                           {recipeData.ingredients.map(
                             (ingredientsData, index) => {
                               return (
-                                <ListGroup.Item key={index} className="text-center">
+                                <ListGroup.Item
+                                  key={index}
+                                  className="text-center"
+                                >
                                   {`${ingredientsData.quantity} ${ingredientsData.units} - ${ingredientsData.ingredient.ingredient_name}  `}
-                                  <small className="text-muted">({`Calories per Serving: ${ingredientsData.ingredient.cal_per_serving}`})</small>
+                                  <small className="text-muted">
+                                    (
+                                    {`Calories per Serving: ${ingredientsData.ingredient.cal_per_serving}`}
+                                    )
+                                  </small>
                                 </ListGroup.Item>
                               );
                             }
@@ -95,6 +105,7 @@ function RecipeView() {
                 <Row>
                   <h1 className="text-center">Directions</h1>
                 </Row>
+                <p>{recipeData.directions}</p>
               </Row>
             </Col>
           </Row>
