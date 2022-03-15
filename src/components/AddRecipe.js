@@ -6,8 +6,7 @@ import {
   Col,
   InputGroup,
   DropdownButton,
-  Dropdown,
-} from "react-bootstrap";
+  Dropdown} from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
 function AddRecipe() {
@@ -50,13 +49,6 @@ function AddRecipe() {
     serving_size: "",
   });
 
-
-  const [categoryTitle, setCategoryTitle] = useState("Recipe Category");
-
-  useEffect(() => {
-    console.log(newRecipeData);
-  }, [newRecipeData]);
-
   function handleNewRecipeChange(e) {
     let name = e.target.name;
     let value = e.target.value;
@@ -74,35 +66,47 @@ function AddRecipe() {
   function handleIngredientChange(i, e) {
     let newIngredientValues = newRecipeData.ingredients;
     newIngredientValues[i][e.target.name] = e.target.value;
-    setNewRecipeData({...newRecipeData, ["ingredients"]:newIngredientValues});
+    setNewRecipeData({
+      ...newRecipeData,
+      ["ingredients"]: newIngredientValues,
+    });
   }
 
   function handleIngredientUnts(i, e) {
     let newIngredientValues = newRecipeData.ingredients;
     newIngredientValues[i]["units"] = e;
-    setNewRecipeData({...newRecipeData, ["ingredients"]:newIngredientValues});
+    setNewRecipeData({
+      ...newRecipeData,
+      ["ingredients"]: newIngredientValues,
+    });
   }
 
   function handleRecipeCategory(e) {
-    setCategoryTitle(e);
     setNewRecipeData({ ...newRecipeData, ["category_name"]: e });
   }
 
   function addIngredient() {
-    setNewRecipeData({...newRecipeData, ["ingredients"]:[...newRecipeData.ingredients,
-      {
-        ingredient_name: "",
-        cal_per_serving: "",
-        quantity: "",
-        units: "Units",
-      },
-    ]});
+    setNewRecipeData({
+      ...newRecipeData,
+      ["ingredients"]: [
+        ...newRecipeData.ingredients,
+        {
+          ingredient_name: "",
+          cal_per_serving: "",
+          quantity: "",
+          units: "Units",
+        },
+      ],
+    });
   }
 
   function removeIngredient(i) {
     let newIngredientValues = newRecipeData.ingredients;
     newIngredientValues.splice(i, 1);
-    setNewRecipeData({...newRecipeData, ["ingredients"]:newIngredientValues});
+    setNewRecipeData({
+      ...newRecipeData,
+      ["ingredients"]: newIngredientValues,
+    });
   }
 
   function handleNewRecipeSubmit(e) {
@@ -143,17 +147,27 @@ function AddRecipe() {
       <Form className="pt-2" onSubmit={(e) => handleNewRecipeSubmit(e)}>
         <Form.Group as={Row} className="ps-2 mb-3" controlId="recipe_name">
           <Col sm={5}>
+            <Form.Control
+              placeholder="Recipe Name"
+              onChange={handleNewRecipeChange}
+              value={newRecipeData.recipe_name}
+              name="recipe_name"
+            />
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row} className="ps-2 mb-3" controlId="recipe_name">
+          <Col sm={5}>
             <InputGroup className="mb-3">
               <Form.Control
-                placeholder="Recipe Name"
+                placeholder="New Recipe Category"
+                name="category_name"
                 onChange={handleNewRecipeChange}
-                value={newRecipeData.recipe_name}
-                name="recipe_name"
+                value={newRecipeData.category_name}
               />
 
               <DropdownButton
                 variant="outline-secondary"
-                title={categoryTitle}
+                title="Select Existing Category"
                 align="end"
                 onSelect={(e) => handleRecipeCategory(e)}
               >
@@ -166,6 +180,7 @@ function AddRecipe() {
             </InputGroup>
           </Col>
         </Form.Group>
+
         <Form.Group as={Row} className="ps-2 mb-3" controlId="serving_size">
           <Col sm={5}>
             <Form.Control

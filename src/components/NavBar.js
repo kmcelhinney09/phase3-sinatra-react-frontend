@@ -64,12 +64,12 @@ function NavBar() {
             </MDBNavbarItem>
             <MDBNavbarItem>
               {user ? (
-                <MDBNavbarLink onClick={handleAddRecipe}>Add Recipe</MDBNavbarLink>
+                <MDBNavbarLink active onClick={handleAddRecipe}>Add Recipe</MDBNavbarLink>
               ) : null}
             </MDBNavbarItem>
             <MDBNavbarItem>
               {user ? (
-                <MDBNavbarLink onClick={handleLogout}>Logout</MDBNavbarLink>
+                <MDBNavbarLink active onClick={handleLogout}>Logout</MDBNavbarLink>
               ) : null}
             </MDBNavbarItem>
           </MDBNavbarNav>
