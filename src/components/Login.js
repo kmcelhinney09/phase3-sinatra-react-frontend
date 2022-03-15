@@ -55,7 +55,7 @@ function Login({ setFormActive }) {
 
                 <Form.Group className="mb-3" controlId="loginPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="password" value={loginFormData.password} onChange={handleLoginOnChange} name="password" />
+                    <Form.Control type="password" placeholder="Password" value={loginFormData.password} onChange={handleLoginOnChange} name="password" />
                 </Form.Group>
                 <Button variant="primary" type="submit">Login</Button>{' '}
                 <Button variant="primary" onClick={() => setFormActive("")}>Cancel</Button>

@@ -11,7 +11,11 @@ function SideBar() {
     fetch(`http://localhost:9292/categories`)
       .then((res) => res.json())
       .then((categoriesData) => {
-        setCategoryList(categoriesData);
+        
+        const categoryNameList = []
+        categoriesData.forEach(category => categoryNameList.push(category.category_name))
+        sessionStorage.setItem("category", JSON.stringify(categoryNameList))
+        setCategoryList(categoryNameList);
       });
   }, []);
 
@@ -44,13 +48,13 @@ function SideBar() {
       </Form>
       <Nav defaultActiveKey="/home" className="flex-column pt-2">
         <Nav.Item>Recipe Categories</Nav.Item>
-        {categoryList.map((category) => (
+        {categoryList.map((category, index) => (
           <Nav.Link
-            key={category.id}
-            href={`/category/${category.id}`}
+            key={index}
+            href={`/category/${index+1}`}
             className="text-secondary"
           >
-            {category.category_name}
+            {category}
           </Nav.Link>
         ))}
       </Nav>
