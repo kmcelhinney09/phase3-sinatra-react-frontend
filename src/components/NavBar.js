@@ -22,6 +22,7 @@ function NavBar() {
   function handleLogout() {
     setUser(null);
     sessionStorage.clear();
+    history.push('/');
   }
 
   function handleAddRecipe(){
