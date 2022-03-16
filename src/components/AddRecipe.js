@@ -68,7 +68,7 @@ function AddRecipe() {
     newIngredientValues[i][e.target.name] = e.target.value;
     setNewRecipeData({
       ...newRecipeData,
-      ["ingredients"]: newIngredientValues,
+      "ingredients": newIngredientValues,
     });
   }
 
