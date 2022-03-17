@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import RecipeCard from "./RecipeCard";
 import SideBar from "./SideBar";
 
-function CardMapping({ recipeArray }) {
+function CardMapping({ recipeArray, inUserBox}) {
   let removeButton = false;  
   return (
     <Container fluid>
@@ -28,6 +28,7 @@ function CardMapping({ recipeArray }) {
                       cal_per_serving={recipe.cal_per_serving}
                       recipe_id={recipe.id}
                       removeButton={removeButton}
+                      inUserBox={inUserBox}
                     />
                   );
                 })}

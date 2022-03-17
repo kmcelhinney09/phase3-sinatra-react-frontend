@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import SideBar from "./SideBar";
 import { Container, Row, Col, ListGroup, Button } from "react-bootstrap";
+import Reviews from "./Reviews";
 
 function RecipeView() {
   let { recipeId } = useParams();
   let user = JSON.parse(sessionStorage.getItem("user"));
   const history = useHistory();
-  
+
   const [recipeData, setRecipeData] = useState({
     recipe_name: "",
     cal_per_serving: 0,
@@ -25,7 +26,6 @@ function RecipeView() {
     fetch(`http://localhost:9292/recipes/${recipeId}`)
       .then((res) => res.json())
       .then((recipe_data) => {
-        console.log(recipe_data)
         setRecipeData({
           recipe_name: recipe_data.recipe_name,
           cal_per_serving: recipe_data.cal_per_serving,
@@ -42,12 +42,12 @@ function RecipeView() {
       });
   }, []);
 
-  function handleOnClick(){
-    const push_address = `/recipes/${recipeId}/edit`
+  function handleOnClick() {
+    const push_address = `/recipes/${recipeId}/edit`;
     history.push({
-      pathname:push_address,
-      state:{recipeData:recipeData, recipeId:recipeId}
-    })
+      pathname: push_address,
+      state: { recipeData: recipeData, recipeId: recipeId },
+    });
   }
 
   return (
@@ -67,7 +67,7 @@ function RecipeView() {
                       src={recipeData.img_url}
                       height="500"
                       width="250"
-                      style={{objectFit: "cover"}}
+                      style={{ objectFit: "cover" }}
                     ></img>
                   </Col>
                   <Col md={8}>
@@ -111,7 +111,14 @@ function RecipeView() {
                             }
                           )}
                         </ListGroup>
-                        {user.id === recipeData.creator_id?<Button variant="outline-success" onClick={handleOnClick}>Edit Recipe</Button>:null}
+                        {user.id === recipeData.creator_id ? (
+                          <Button
+                            variant="outline-success"
+                            onClick={handleOnClick}
+                          >
+                            Edit Recipe
+                          </Button>
+                        ) : null}
                       </Col>
                     </Row>
                   </Col>
@@ -122,6 +129,20 @@ function RecipeView() {
                 <p>{recipeData.directions}</p>
               </Row>
             </Col>
+            <Row>
+              <h1 className="text-center">Reviews</h1>
+              {reviewData.length == 0?
+              <>
+              <hr/> 
+              <h3 className="text-center">No Review Yet</h3> 
+              </>:
+              reviewData.map((review, index) => {
+                
+                return (
+                   <Reviews key={index} reviewerName={review.user.name} reviewText={review.review_text} updated_at={review.updated_at} reviewerId={review.user_id} reviewId={review.id}/>                  
+                );
+              })}
+            </Row>
           </Row>
         </Col>
       </Row>

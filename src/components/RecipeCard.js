@@ -11,6 +11,8 @@ function RecipeCard({
   ingredients_list,
   cal_per_serving,
   recipe_id,
+  inUserBox,
+  userOwnedRecipes
 }) {
   const history = useHistory();
   const user = JSON.parse(sessionStorage.getItem("user"));
@@ -35,7 +37,6 @@ function RecipeCard({
   }
 
   function handleAdd(id) {
-    setUserBox([...userBox, id])
     fetch(`http://localhost:9292/users/${user.id}/recipe_box`, {
       method: "POST",
       headers: {
@@ -61,7 +62,7 @@ function RecipeCard({
         window.location.reload(false);
       })
   }
-
+ console.log(inUserBox, recipe_id)
   return (
     <Col md={4}>
       <Card className="hover-shadow" style={{ cursor: "pointer" }}>
@@ -92,8 +93,7 @@ function RecipeCard({
             </Card.Body>
             <Card.Footer>
               <ButtonGroup>
-                {console.log(userBox)}
-                {!userBox.includes(recipe_id) ? (
+                {!inUserBox.includes(recipe_id) ? (
                   <Button
                     variant="outline-success"
                     onClick={() => handleAdd(recipe_id)}
@@ -101,7 +101,7 @@ function RecipeCard({
                     Add
                   </Button>
                 ) : null}
-                {userBox.includes(recipe_id) ? (
+                {inUserBox.includes(recipe_id) ? (
                   <Button variant="outline-success" onClick={handleRemoveClick}>Remove</Button>
                 ) : null}
               </ButtonGroup>

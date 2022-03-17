@@ -12,8 +12,8 @@ import EditRecipe from "./EditRecipe";
 
 function App() {
   const { user, setUser } = UserAuth();
-  const [boxReset, setBoxRest] = useState(false);
   const [categoryList, setCategoryList] = useState([]);
+  const [inUserBox, setInUserBox] = useState([]);
 
   useEffect(() => {
     let userData = JSON.parse(sessionStorage.getItem("user"));
@@ -41,22 +41,22 @@ function App() {
               <User
                 user_id={user.id}
                 name={user.name}
-                boxReset={boxReset}
-                setBoxRest={setBoxRest}
                 categoryList={categoryList}
+                inUserBox={inUserBox}
+                setInUserBox={setInUserBox}
               />
             ) : (
               <Home />
             )}
           </Route>
           <Route path={"/category/:categoryId"}>
-            <RecipeByCategory boxReset={boxReset} setBoxRest={setBoxRest} categoryList={categoryList}/>
+            <RecipeByCategory categoryList={categoryList} inUserBox={inUserBox}/>
           </Route>
           <Route path={"/recipe/:recipeId"}>
             <RecipeView />
           </Route>
           <Route path={"/ingredient/:ingredientName"}>
-            <RecipeByIngredient boxReset={boxReset} setBoxRest={setBoxRest} categoryList={categoryList}/>
+            <RecipeByIngredient  inUserBox={inUserBox} />
           </Route>
           <Route path={"/recipes/new"}>
             <AddRecipe />

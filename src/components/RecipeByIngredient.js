@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CardMapping from "./CardMapping";
 import { useParams } from "react-router-dom";
 
-function RecipeByIngredient() {
+function RecipeByIngredient({ inUserBox }) {
   let { ingredientName } = useParams();
   const [recipeByIngredient, setrecipeByIngredient] = useState([]);
   useEffect(() => {
@@ -22,6 +22,7 @@ function RecipeByIngredient() {
       <h1 className="text-center">{`Recipe Including ${ingredientName}`}</h1>
       <CardMapping
         recipeArray={recipeByIngredient}
+        inUserBox={inUserBox}
       />
     </>
   );
