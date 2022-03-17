@@ -8,6 +8,7 @@ import RecipeView from "./RecipeView";
 import RecipeByCategory from "./RecipeByCategory";
 import RecipeByIngredient from "./RecipeByIngredient";
 import AddRecipe from "./AddRecipe";
+import EditRecipe from "./EditRecipe";
 
 function App() {
   const { user, setUser } = UserAuth();
@@ -59,6 +60,9 @@ function App() {
           </Route>
           <Route path={"/recipes/new"}>
             <AddRecipe />
+          </Route>
+          <Route path={"/recipes/:id/edit"}>
+            <EditRecipe />
           </Route>
         </Switch>
       </BrowserRouter>

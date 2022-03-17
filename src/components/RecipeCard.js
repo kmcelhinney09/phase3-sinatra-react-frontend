@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react"
 import { Row, Col, Card, ButtonGroup, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
@@ -11,14 +11,10 @@ function RecipeCard({
   ingredients_list,
   cal_per_serving,
   recipe_id,
-  removeButton,
-  addButton,
-  editButton,
-  boxReset,
-  setBoxRest,
 }) {
   const history = useHistory();
   const user = JSON.parse(sessionStorage.getItem("user"));
+  const [userBox, setUserBox] = useState(JSON.parse(sessionStorage.getItem("box")))
 
   function msToTime(ms) {
     let seconds = (ms / 1000).toFixed(1);
@@ -33,12 +29,13 @@ function RecipeCard({
 
   let timeSinceEdit = msToTime(Date.now() - Date.parse(updated));
 
-  function handleClick(id) {
+  function handleRecipeClick(id) {
     const pushed_address = `/recipe/${id}`;
     history.push(pushed_address);
   }
 
   function handleAdd(id) {
+    setUserBox([...userBox, id])
     fetch(`http://localhost:9292/users/${user.id}/recipe_box`, {
       method: "POST",
       headers: {
@@ -49,9 +46,20 @@ function RecipeCard({
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        const pushed_address = `/users/${id}`;
+        const pushed_address = `/users/${user.id}`;
         history.push(pushed_address);        
       });
+  }
+
+  function handleRemoveClick(){
+    fetch(`http://localhost:9292/users/${user.id}/recipe_box/${recipe_id}`, {
+      method: "DELETE",      
+      })
+      .then(res => res.json())
+      .then(deletedRecipe => {
+        console.log(deletedRecipe)
+        window.location.reload(false);
+      })
   }
 
   return (
@@ -64,7 +72,7 @@ function RecipeCard({
           <Col md={8}>
             <Card.Body
               className="text-center"
-              onClick={() => handleClick(recipe_id)}
+              onClick={() => handleRecipeClick(recipe_id)}
             >
               <Card.Title className="text-primary">{recipe_name}</Card.Title>
               <Card.Subtitle className="text-success">
@@ -84,7 +92,8 @@ function RecipeCard({
             </Card.Body>
             <Card.Footer>
               <ButtonGroup>
-                {addButton ? (
+                {console.log(userBox)}
+                {!userBox.includes(recipe_id) ? (
                   <Button
                     variant="outline-success"
                     onClick={() => handleAdd(recipe_id)}
@@ -92,11 +101,8 @@ function RecipeCard({
                     Add
                   </Button>
                 ) : null}
-                {editButton ? (
-                  <Button variant="outline-success">Edit</Button>
-                ) : null}
-                {removeButton ? (
-                  <Button variant="outline-success">Remove</Button>
+                {userBox.includes(recipe_id) ? (
+                  <Button variant="outline-success" onClick={handleRemoveClick}>Remove</Button>
                 ) : null}
               </ButtonGroup>
               <br />

@@ -3,12 +3,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import RecipeCard from "./RecipeCard";
 import SideBar from "./SideBar";
 
-function CardMapping({ recipeArray, boxReset, setBoxRest}) {
-  let removeButton = false;
-  let addButton = false;
-  let editButton = false;
-  let userBox = JSON.parse(sessionStorage.getItem("box"));
-  let userOwned = JSON.parse(sessionStorage.getItem("userOwned"));
+function CardMapping({ recipeArray }) {
+  let removeButton = false;  
   return (
     <Container fluid>
       <Row>
@@ -20,21 +16,6 @@ function CardMapping({ recipeArray, boxReset, setBoxRest}) {
             <Col lg={12}>
               <Row>
                 {recipeArray.map((recipe) => {
-                  if (typeof userBox != "undefined" && userBox) {
-                    if (userBox.includes(recipe.id)) {
-                      removeButton = true;
-                    } else {
-                      addButton = true;
-                    }
-                  }
-                  if (typeof userOwned != "undefined" && userOwned) {
-                    if (userOwned.includes(recipe.id)) {
-                      editButton = true;
-                    }else{
-                      editButton = false;
-                    }
-                  }
-
                   return (
                     <RecipeCard
                       key={recipe.id}
@@ -47,10 +28,6 @@ function CardMapping({ recipeArray, boxReset, setBoxRest}) {
                       cal_per_serving={recipe.cal_per_serving}
                       recipe_id={recipe.id}
                       removeButton={removeButton}
-                      addButton={addButton}
-                      editButton={editButton}
-                      boxReset={boxReset} 
-                      setBoxRest={setBoxRest}
                     />
                   );
                 })}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CardMapping from "./CardMapping";
 import { useParams } from "react-router-dom";
 
-function RecipeByIngredient(boxReset, setBoxRest) {
+function RecipeByIngredient() {
   let { ingredientName } = useParams();
   const [recipeByIngredient, setrecipeByIngredient] = useState([]);
   useEffect(() => {
@@ -22,8 +22,6 @@ function RecipeByIngredient(boxReset, setBoxRest) {
       <h1 className="text-center">{`Recipe Including ${ingredientName}`}</h1>
       <CardMapping
         recipeArray={recipeByIngredient}
-        boxReset={boxReset} 
-        setBoxRest={setBoxRest}
       />
     </>
   );

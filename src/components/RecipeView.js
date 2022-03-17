@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import SideBar from "./SideBar";
-import { Container, Row, Col, ListGroup } from "react-bootstrap";
+import { Container, Row, Col, ListGroup, Button } from "react-bootstrap";
 
 function RecipeView() {
   let { recipeId } = useParams();
+  let user = JSON.parse(sessionStorage.getItem("user"));
+  const history = useHistory();
+  
   const [recipeData, setRecipeData] = useState({
     recipe_name: "",
     cal_per_serving: 0,
@@ -22,6 +25,7 @@ function RecipeView() {
     fetch(`http://localhost:9292/recipes/${recipeId}`)
       .then((res) => res.json())
       .then((recipe_data) => {
+        console.log(recipe_data)
         setRecipeData({
           recipe_name: recipe_data.recipe_name,
           cal_per_serving: recipe_data.cal_per_serving,
@@ -37,6 +41,14 @@ function RecipeView() {
         setReviewData(recipe_data.reviews);
       });
   }, []);
+
+  function handleOnClick(){
+    const push_address = `/recipes/${recipeId}/edit`
+    history.push({
+      pathname:push_address,
+      state:{recipeData:recipeData, recipeId:recipeId}
+    })
+  }
 
   return (
     <Container fluid>
@@ -54,7 +66,8 @@ function RecipeView() {
                     <img
                       src={recipeData.img_url}
                       height="500"
-                      width="auto"
+                      width="250"
+                      style={{objectFit: "cover"}}
                     ></img>
                   </Col>
                   <Col md={8}>
@@ -98,6 +111,7 @@ function RecipeView() {
                             }
                           )}
                         </ListGroup>
+                        {user.id === recipeData.creator_id?<Button variant="outline-success" onClick={handleOnClick}>Edit Recipe</Button>:null}
                       </Col>
                     </Row>
                   </Col>
