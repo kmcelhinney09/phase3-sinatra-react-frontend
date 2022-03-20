@@ -9,11 +9,13 @@ import RecipeByCategory from "./RecipeByCategory";
 import RecipeByIngredient from "./RecipeByIngredient";
 import AddRecipe from "./AddRecipe";
 import EditRecipe from "./EditRecipe";
+import AddReview from "./AddReview";
 
 function App() {
   const { user, setUser } = UserAuth();
   const [categoryList, setCategoryList] = useState([]);
   const [inUserBox, setInUserBox] = useState([]);
+  const [changeInBox, setChangeInBox] = useState([]);
 
   useEffect(() => {
     let userData = JSON.parse(sessionStorage.getItem("user"));
@@ -27,6 +29,14 @@ function App() {
         setCategoryList(categoriesData);
       });
   }, []);
+
+  function handleinUserBox(data){
+    setInUserBox(data)
+  }
+
+  function handleChangeInBox(newUserBox){
+    setChangeInBox(newUserBox)
+  }
 
   return (
     <>
@@ -43,26 +53,31 @@ function App() {
                 name={user.name}
                 categoryList={categoryList}
                 inUserBox={inUserBox}
-                setInUserBox={setInUserBox}
+                setInUserBox={handleinUserBox}
+                changeInBox={changeInBox}
+                handleChangeInBox={handleChangeInBox}
               />
             ) : (
               <Home />
             )}
           </Route>
           <Route path={"/category/:categoryId"}>
-            <RecipeByCategory categoryList={categoryList} inUserBox={inUserBox}/>
+            <RecipeByCategory categoryList={categoryList} inUserBox={inUserBox} handleChangeInBox={handleChangeInBox} />
           </Route>
           <Route path={"/recipe/:recipeId"}>
             <RecipeView />
           </Route>
           <Route path={"/ingredient/:ingredientName"}>
-            <RecipeByIngredient  inUserBox={inUserBox} />
+            <RecipeByIngredient  inUserBox={inUserBox} handleChangeInBox={handleChangeInBox} />
           </Route>
           <Route path={"/recipes/new"}>
             <AddRecipe />
           </Route>
           <Route path={"/recipes/:id/edit"}>
             <EditRecipe />
+          </Route>
+          <Route path={"/recipes/:id/reviews"}>
+              <AddReview />
           </Route>
         </Switch>
       </BrowserRouter>

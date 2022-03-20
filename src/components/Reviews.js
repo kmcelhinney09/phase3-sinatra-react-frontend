@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Row, Col, Button } from "react-bootstrap";
-function Reviews({ reviewerName, reviewText, updated_at, reviewerId, reviewId }) {
+function Reviews({ reviewerName, reviewText, updated_at, reviewerId, reviewId, handleReviewRemoved}) {
   const splitDate = updated_at.split("-");
   const year = splitDate[0];
   const month = splitDate[1];
@@ -13,8 +13,7 @@ function Reviews({ reviewerName, reviewText, updated_at, reviewerId, reviewId })
     })
     .then(res => res.json())
       .then(deletedReview => {
-        console.log(deletedReview)
-        window.location.reload(false);
+        handleReviewRemoved(reviewId)
       })
   }
 

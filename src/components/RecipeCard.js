@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Row, Col, Card, ButtonGroup, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
@@ -12,11 +12,11 @@ function RecipeCard({
   cal_per_serving,
   recipe_id,
   inUserBox,
-  userOwnedRecipes
+  handleChangeInBox,
 }) {
   const history = useHistory();
   const user = JSON.parse(sessionStorage.getItem("user"));
-  const [userBox, setUserBox] = useState(JSON.parse(sessionStorage.getItem("box")))
+
 
   function msToTime(ms) {
     let seconds = (ms / 1000).toFixed(1);
@@ -46,7 +46,7 @@ function RecipeCard({
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        handleChangeInBox([...inUserBox,id])
         const pushed_address = `/users/${user.id}`;
         history.push(pushed_address);        
       });
@@ -58,11 +58,11 @@ function RecipeCard({
       })
       .then(res => res.json())
       .then(deletedRecipe => {
-        console.log(deletedRecipe)
-        window.location.reload(false);
+        const newUserBox = inUserBox.filter(inBoxId => inBoxId != recipe_id)
+        handleChangeInBox(newUserBox)
       })
   }
- console.log(inUserBox, recipe_id)
+
   return (
     <Col md={4}>
       <Card className="hover-shadow" style={{ cursor: "pointer" }}>

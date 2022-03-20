@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Nav, Form, FormControl, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { LinkContainer } from 'react-router-bootstrap'
-import { Link } from "react-router-dom";
 
 function SideBar() {
   const [categoryList, setCategoryList] = useState([]);
@@ -51,9 +50,8 @@ function SideBar() {
       <Nav defaultActiveKey="/home" className="flex-column pt-2">
         <Nav.Item>Recipe Categories</Nav.Item>
         {categoryList.map((category, index) => (
-          <LinkContainer to={`/category/${index+1}`} >
+          <LinkContainer key={index} to={`/category/${index+1}`} >
           <Nav.Link
-            key={index}
             className="text-secondary"
           >
             {category}

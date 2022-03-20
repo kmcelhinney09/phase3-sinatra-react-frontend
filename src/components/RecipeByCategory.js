@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CardMapping from "./CardMapping";
 
-function RecipeByCategory({ inUserBox }) {
+function RecipeByCategory({ inUserBox, handleChangeInBox }) {
   let { categoryId } = useParams();
   const [recipeByCategory, setrecipeByCategory] = useState([]);
   const [categoryName, setCategoryName] = useState([]);
@@ -18,11 +18,11 @@ function RecipeByCategory({ inUserBox }) {
 
   return (
     <>
-    {console.log(inUserBox)}
       <h1 className="text-center">{categoryName} Recipes Category</h1>
       <CardMapping
         recipeArray={recipeByCategory}
         inUserBox={inUserBox}
+        handleChangeInBox={handleChangeInBox}
       />
     </>
   );

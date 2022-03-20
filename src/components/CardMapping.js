@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Alert } from "react-bootstrap";
 import RecipeCard from "./RecipeCard";
 import SideBar from "./SideBar";
 
-function CardMapping({ recipeArray, inUserBox}) {
-  let removeButton = false;  
+function CardMapping({ recipeArray, inUserBox, setInUserBox, handleChangeInBox }) {
+
   return (
     <Container fluid>
       <Row>
@@ -12,7 +12,7 @@ function CardMapping({ recipeArray, inUserBox}) {
           <SideBar />
         </Col>
         <Col md={10}>
-          <Row >
+          <Row>
             <Col lg={12}>
               <Row>
                 {recipeArray.map((recipe) => {
@@ -27,8 +27,8 @@ function CardMapping({ recipeArray, inUserBox}) {
                       ingredients_list={recipe.recipe_ingredients}
                       cal_per_serving={recipe.cal_per_serving}
                       recipe_id={recipe.id}
-                      removeButton={removeButton}
                       inUserBox={inUserBox}
+                      handleChangeInBox={handleChangeInBox}
                     />
                   );
                 })}

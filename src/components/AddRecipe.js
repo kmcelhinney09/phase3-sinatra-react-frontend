@@ -120,8 +120,6 @@ function AddRecipe() {
     })
       .then((res) => res.json())
       .then((confirm) => {
-        console.log(confirm);
-
         setNewRecipeData({
           recipe_name: "",
           cal_per_serving: "",

@@ -3,11 +3,15 @@ import { useParams, useHistory } from "react-router-dom";
 import SideBar from "./SideBar";
 import { Container, Row, Col, ListGroup, Button } from "react-bootstrap";
 import Reviews from "./Reviews";
+import AddReview from "./AddReview";
 
 function RecipeView() {
   let { recipeId } = useParams();
   let user = JSON.parse(sessionStorage.getItem("user"));
   const history = useHistory();
+
+  const [addReview, setAddReview] = useState(false);
+  const [reviewDeleted, setReviewDeleted] = useState([])
 
   const [recipeData, setRecipeData] = useState({
     recipe_name: "",
@@ -40,7 +44,7 @@ function RecipeView() {
 
         setReviewData(recipe_data.reviews);
       });
-  }, []);
+  }, [addReview, reviewDeleted]);
 
   function handleOnClick() {
     const push_address = `/recipes/${recipeId}/edit`;
@@ -50,8 +54,14 @@ function RecipeView() {
     });
   }
 
+  function handleReviewRemoved(id){
+    const newReviewList = reviewData.filter(review => review.id != id)
+    setReviewDeleted(newReviewList)
+  }
+
   return (
     <Container fluid>
+      {console.log(reviewData)}
       <Row>
         <Col md={2}>
           <SideBar />
@@ -111,6 +121,8 @@ function RecipeView() {
                             }
                           )}
                         </ListGroup>
+                      </Col>
+                      <Col>
                         {user.id === recipeData.creator_id ? (
                           <Button
                             variant="outline-success"
@@ -119,7 +131,18 @@ function RecipeView() {
                             Edit Recipe
                           </Button>
                         ) : null}
+                        <Button
+                          variant="outline-success"
+                          onClick={() => setAddReview(true)}
+                        >
+                          Add Review
+                        </Button>
                       </Col>
+                    </Row>
+                    <Row>
+                      {addReview ? (
+                        <AddReview setAddReview={() => setAddReview()} />
+                      ) : null}
                     </Row>
                   </Col>
                 </Row>
@@ -131,17 +154,26 @@ function RecipeView() {
             </Col>
             <Row>
               <h1 className="text-center">Reviews</h1>
-              {reviewData.length == 0?
-              <>
-              <hr/> 
-              <h3 className="text-center">No Review Yet</h3> 
-              </>:
-              reviewData.map((review, index) => {
-                
-                return (
-                   <Reviews key={index} reviewerName={review.user.name} reviewText={review.review_text} updated_at={review.updated_at} reviewerId={review.user_id} reviewId={review.id}/>                  
-                );
-              })}
+              {reviewData.length == 0 ? (
+                <>
+                  <hr />
+                  <h3 className="text-center">No Review Yet</h3>
+                </>
+              ) : (
+                reviewData.map((review, index) => {
+                  return (
+                    <Reviews
+                      key={index}
+                      reviewerName={review.user.name}
+                      reviewText={review.review_text}
+                      updated_at={review.updated_at}
+                      reviewerId={review.user_id}
+                      reviewId={review.id}
+                      handleReviewRemoved={handleReviewRemoved}
+                    />
+                  );
+                })
+              )}
             </Row>
           </Row>
         </Col>
