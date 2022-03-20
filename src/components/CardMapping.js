@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Alert } from "react-bootstrap";
+import React from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import RecipeCard from "./RecipeCard";
 import SideBar from "./SideBar";
 
-function CardMapping({ recipeArray, inUserBox, setInUserBox, handleChangeInBox }) {
+function CardMapping({ recipeArray, inUserBox, handleChangeInBox }) {
 
   return (
     <Container fluid>
+      {console.log(recipeArray)}
       <Row>
         <Col md={2}>
           <SideBar />

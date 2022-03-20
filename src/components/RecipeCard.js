@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react"
 import { Row, Col, Card, ButtonGroup, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
@@ -58,7 +57,7 @@ function RecipeCard({
       })
       .then(res => res.json())
       .then(deletedRecipe => {
-        const newUserBox = inUserBox.filter(inBoxId => inBoxId != recipe_id)
+        const newUserBox = inUserBox.filter(inBoxId => inBoxId !== recipe_id)
         handleChangeInBox(newUserBox)
       })
   }

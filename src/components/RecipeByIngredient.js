@@ -12,7 +12,7 @@ function RecipeByIngredient({ inUserBox, handleChangeInBox }) {
         setrecipeByIngredient(ingredientData);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [ingredientName]);
 
   return (
     <>

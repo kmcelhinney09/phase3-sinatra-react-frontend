@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 function Reviews({ reviewerName, reviewText, updated_at, reviewerId, reviewId, handleReviewRemoved}) {
   const splitDate = updated_at.split("-");
@@ -29,7 +28,7 @@ function Reviews({ reviewerName, reviewText, updated_at, reviewerId, reviewId, h
           <hr />
         </Col>
         <Col>
-        {reviewerId==user.id?<Button variant="outline-success" onClick={handleDeleteClick}>Delete</Button>:null}
+        {reviewerId===user.id?<Button variant="outline-success" onClick={handleDeleteClick}>Delete</Button>:null}
         </Col>
       </Row>
     </Row>

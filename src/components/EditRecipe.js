@@ -275,15 +275,15 @@ function EditRecipe() {
                         id={"dropdownbutton" + (index + 1)}
                         onSelect={(e) => handleIngredientUnts(index, e)}
                       >
-                        {units.map((unit) => (
-                          <Dropdown.Item eventKey={unit}>{unit}</Dropdown.Item>
+                        {units.map((unit, index) => (
+                          <Dropdown.Item key={index} eventKey={unit}>{unit}</Dropdown.Item>
                         ))}
                       </DropdownButton>
                     </InputGroup>
                   </Col>
                   <Col md={2}>
                     {index ? (
-                      <Button className=" mb-2 " onClick={removeIngredient}>
+                      <Button className=" mb-2 " onClick={() => removeIngredient(index)}>
                         Remove
                       </Button>
                     ) : null}

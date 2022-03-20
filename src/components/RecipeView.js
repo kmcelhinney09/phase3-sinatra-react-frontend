@@ -55,7 +55,7 @@ function RecipeView() {
   }
 
   function handleReviewRemoved(id){
-    const newReviewList = reviewData.filter(review => review.id != id)
+    const newReviewList = reviewData.filter(review => review.id !== id)
     setReviewDeleted(newReviewList)
   }
 
@@ -78,6 +78,7 @@ function RecipeView() {
                       height="500"
                       width="250"
                       style={{ objectFit: "cover" }}
+                      alt="food from recipe"
                     ></img>
                   </Col>
                   <Col md={8}>
@@ -154,7 +155,7 @@ function RecipeView() {
             </Col>
             <Row>
               <h1 className="text-center">Reviews</h1>
-              {reviewData.length == 0 ? (
+              {reviewData.length === 0 ? (
                 <>
                   <hr />
                   <h3 className="text-center">No Review Yet</h3>

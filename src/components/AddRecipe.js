@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Form,
   Button,
@@ -137,6 +137,7 @@ function AddRecipe() {
           img_url: "",
           serving_size: "",
         });
+        history.push(`/users/${user.id}`)
       });
   }
 

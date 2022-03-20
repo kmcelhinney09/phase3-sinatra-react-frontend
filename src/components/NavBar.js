@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { UserAuth } from "../context/AuthProvider";
+import { LinkContainer } from "react-router-bootstrap";
 import {
   MDBNavbar,
   MDBContainer,
@@ -11,21 +12,21 @@ import {
   MDBCollapse,
   MDBNavbarBrand,
 } from "mdb-react-ui-kit";
-import { useHistory } from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 
 function NavBar() {
   const [showNavRight, setShowNavRight] = useState(false);
   const { user, setUser } = UserAuth();
 
-  const history = useHistory()
+  const history = useHistory();
 
   function handleLogout() {
     setUser(null);
     sessionStorage.clear();
-    history.push('/');
+    history.push("/");
   }
 
-  function handleAddRecipe(){
+  function handleAddRecipe() {
     const pushed_address = `/recipes/new`;
     history.push(pushed_address);
   }
@@ -57,20 +58,25 @@ function NavBar() {
             </MDBNavbarItem>
             <MDBNavbarItem>
               {user ? (
-                <MDBNavbarLink
-                  active
-                  href={`/users/${user.id}`}
-                >{`Logged in as: ${user.name}`}</MDBNavbarLink>
+                <LinkContainer to={`/users/${user.id}`}>
+                  <MDBNavbarLink
+                    active
+                  >{`Logged in as: ${user.name}`}</MDBNavbarLink>
+                </LinkContainer>
               ) : null}
             </MDBNavbarItem>
             <MDBNavbarItem>
               {user ? (
-                <MDBNavbarLink active onClick={handleAddRecipe}>Add Recipe</MDBNavbarLink>
+                <MDBNavbarLink active onClick={handleAddRecipe}>
+                  Add Recipe
+                </MDBNavbarLink>
               ) : null}
             </MDBNavbarItem>
             <MDBNavbarItem>
               {user ? (
-                <MDBNavbarLink active onClick={handleLogout}>Logout</MDBNavbarLink>
+                <MDBNavbarLink active onClick={handleLogout}>
+                  Logout
+                </MDBNavbarLink>
               ) : null}
             </MDBNavbarItem>
           </MDBNavbarNav>
