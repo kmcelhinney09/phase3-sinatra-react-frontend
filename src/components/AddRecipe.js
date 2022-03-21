@@ -111,6 +111,7 @@ function AddRecipe() {
 
   function handleNewRecipeSubmit(e) {
     e.preventDefault();
+    
     fetch("http://localhost:9292/recipes", {
       method: "POST",
       headers: {
