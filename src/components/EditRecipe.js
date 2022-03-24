@@ -13,6 +13,7 @@ import { useHistory, useLocation } from "react-router-dom";
 function EditRecipe() {
   let history = useHistory();
   const location = useLocation();
+  const fetchUrl = process.env.REACT_APP_SERVER
 
   useEffect(() => {
     const editRecipeData = {
@@ -136,7 +137,7 @@ function EditRecipe() {
 
   function handleNewRecipeSubmit(e) {
     e.preventDefault();
-    fetch(`http://localhost:9292/recipes/${location.state.recipeId}`, {
+    fetch(`${fetchUrl}/recipes/${location.state.recipeId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

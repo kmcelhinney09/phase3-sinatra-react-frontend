@@ -3,12 +3,13 @@ import CardMapping from "./CardMapping";
 
 function User({ user_id, name, inUserBox, setInUserBox, changeInBox, handleChangeInBox }) {
   const [userRecipeBoxData, setUserRecipeBoxData] = useState([]);
+  const fetchUrl = process.env.REACT_APP_SERVER
 
   
   
 
   useEffect(() => {    
-    fetch(`${process.env.REACT_APP_SERVER }/users/${user_id}/recipe_box`)
+    fetch(`${fetchUrl}/users/${user_id}/recipe_box`)
       .then((res) => res.json())
       .then((data) => {
         // console.log(data)

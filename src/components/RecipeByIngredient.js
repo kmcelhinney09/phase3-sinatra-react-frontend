@@ -5,8 +5,10 @@ import { useParams } from "react-router-dom";
 function RecipeByIngredient({ inUserBox, handleChangeInBox }) {
   let { ingredientName } = useParams();
   const [recipeByIngredient, setrecipeByIngredient] = useState([]);
+  const fetchUrl = process.env.REACT_APP_SERVER
+
   useEffect(() => {
-    fetch(`http://localhost:9292/recipes/ingredient/${ingredientName}`)
+    fetch(`${fetchUrl}/recipes/ingredient/${ingredientName}`)
       .then((res) => res.json())
       .then((ingredientData) => {
         setrecipeByIngredient(ingredientData);

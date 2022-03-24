@@ -5,6 +5,7 @@ import { UserAuth } from '../context/AuthProvider'
 
 function Login({ setFormActive }) {
     const { setUser } = UserAuth();
+    const fetchUrl = process.env.REACT_APP_SERVER
     const [loginFormData, setLoginFormData] = useState({
         login_id: "",
         password: ""
@@ -26,7 +27,7 @@ function Login({ setFormActive }) {
             "password": loginFormData.password
         }
 
-        fetch("http://localhost:9292/users/login", {
+        fetch(`${fetchUrl}/users/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

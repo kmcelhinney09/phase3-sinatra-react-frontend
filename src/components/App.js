@@ -16,6 +16,7 @@ function App() {
   const [categoryList, setCategoryList] = useState([]);
   const [inUserBox, setInUserBox] = useState([]);
   const [changeInBox, setChangeInBox] = useState([]);
+  const fetchUrl = process.env.REACT_APP_SERVER
 
   useEffect(() => {
     let userData = JSON.parse(sessionStorage.getItem("user"));
@@ -23,7 +24,7 @@ function App() {
   }, [setUser]);
 
   useEffect(() => {
-    fetch(`http://localhost:9292/categories`)
+    fetch(`${fetchUrl}/categories`)
       .then((res) => res.json())
       .then((categoriesData) => {
         setCategoryList(categoriesData);

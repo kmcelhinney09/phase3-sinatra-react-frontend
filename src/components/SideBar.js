@@ -7,9 +7,10 @@ function SideBar() {
   const [categoryList, setCategoryList] = useState([]);
   const [ingredientName, setIngredientName] = useState("");
   const history = useHistory();
+  const fetchUrl = process.env.REACT_APP_SERVER
 
   useEffect(() => {
-    fetch(`http://localhost:9292/categories`)
+    fetch(`${fetchUrl}/categories`)
       .then((res) => res.json())
       .then((categoriesData) => {
         

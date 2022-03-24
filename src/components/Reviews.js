@@ -6,8 +6,10 @@ function Reviews({ reviewerName, reviewText, updated_at, reviewerId, reviewId, h
   const day = splitDate[2].substr(0, 2);
 
   const user = JSON.parse(sessionStorage.getItem("user"))
+  const fetchUrl = process.env.REACT_APP_SERVER
+
   function handleDeleteClick(){
-    fetch(`http://localhost:9292/reviews/${reviewId}`, {
+    fetch(`${fetchUrl}/reviews/${reviewId}`, {
       method: "DELETE",
     })
     .then(res => res.json())

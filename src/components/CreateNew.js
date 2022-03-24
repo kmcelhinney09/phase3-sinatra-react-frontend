@@ -4,6 +4,7 @@ import { UserAuth } from '../context/AuthProvider'
 
 function CreateNew({ setFormActive }) {
     const { setAuth } = UserAuth()
+    const fetchUrl = process.env.REACT_APP_SERVER
     const [showAlert, setShowAlert] = useState(false)
     const [alertMessage, setAlertMessage] = useState("")
     const [createFormData, setCreateFormData] = useState({
@@ -42,7 +43,7 @@ function CreateNew({ setFormActive }) {
             "login_id": createFormData.login_id,
             "password": createFormData.password,
         }
-        fetch("http://localhost:9292/users/new", {
+        fetch(`${fetchUrl}/users/new`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

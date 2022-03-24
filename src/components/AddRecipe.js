@@ -13,6 +13,7 @@ function AddRecipe() {
   let history = useHistory();
   const categoryNames = JSON.parse(sessionStorage.getItem("category"));
   const user = JSON.parse(sessionStorage.getItem("user"));
+  const fetchUrl = process.env.REACT_APP_SERVER 
   const units = [
     "cups",
     "tsp",
@@ -112,7 +113,7 @@ function AddRecipe() {
   function handleNewRecipeSubmit(e) {
     e.preventDefault();
     
-    fetch("http://localhost:9292/recipes", {
+    fetch(`${fetchUrl}recipes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

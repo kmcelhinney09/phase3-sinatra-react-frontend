@@ -15,6 +15,7 @@ function RecipeCard({
 }) {
   const history = useHistory();
   const user = JSON.parse(sessionStorage.getItem("user"));
+  const fetchUrl = process.env.REACT_APP_SERVER
 
 
   function msToTime(ms) {
@@ -36,7 +37,7 @@ function RecipeCard({
   }
 
   function handleAdd(id) {
-    fetch(`http://localhost:9292/users/${user.id}/recipe_box`, {
+    fetch(`${fetchUrl}/users/${user.id}/recipe_box`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +53,7 @@ function RecipeCard({
   }
 
   function handleRemoveClick(){
-    fetch(`http://localhost:9292/users/${user.id}/recipe_box/${recipe_id}`, {
+    fetch(`${fetchUrl}/users/${user.id}/recipe_box/${recipe_id}`, {
       method: "DELETE",      
       })
       .then(res => res.json())

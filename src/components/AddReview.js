@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 function AddReview({ setAddReview }) {
   const [reviewData, setReviewData] = useState("");
   let { recipeId } = useParams();
+  const fetchUrl = process.env.REACT_APP_SERVER
 
   function handleRevewTextChange(e) {
     setReviewData(e.target.value);
@@ -24,7 +25,7 @@ function AddReview({ setAddReview }) {
       review_text: reviewData,
     };
 
-    fetch("http://localhost:9292/reviews", {
+    fetch(`${fetchUrl}/reviews`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

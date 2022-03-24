@@ -25,9 +25,10 @@ function RecipeView() {
     last_updated: "",
   });
   const [reviewData, setReviewData] = useState([]);
+  const fetchUrl = process.env.REACT_APP_SERVER
 
   useEffect(() => {
-    fetch(`http://localhost:9292/recipes/${recipeId}`)
+    fetch(`${fetchUrl}/recipes/${recipeId}`)
       .then((res) => res.json())
       .then((recipe_data) => {
         setRecipeData({
