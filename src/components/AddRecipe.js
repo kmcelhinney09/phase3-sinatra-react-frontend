@@ -113,7 +113,7 @@ function AddRecipe() {
   function handleNewRecipeSubmit(e) {
     e.preventDefault();
     
-    fetch(`${fetchUrl}recipes`, {
+    fetch(`${fetchUrl}/recipes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
