@@ -52,6 +52,7 @@ function CreateNew({ setFormActive }) {
         })
             .then(res => res.json())
             .then(userData => {
+                console.log(userData)
                 if (userData.id) {
                     setAuth(userData);
                     setCreateFormData({ name: "", login_id: "", password: "" });
