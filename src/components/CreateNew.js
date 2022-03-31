@@ -52,7 +52,6 @@ function CreateNew({ setFormActive }) {
     })
       .then((res) => res.json())
       .then((userData) => {
-        console.log(userData);
         if (userData.id) {
           sessionStorage.setItem("user", JSON.stringify(userData));
           setUser(userData);

@@ -7,7 +7,6 @@ function CardMapping({ recipeArray, inUserBox, handleChangeInBox }) {
 
   return (
     <Container fluid>
-      {console.log(recipeArray)}
       <Row>
         <Col md={2}>
           <SideBar />

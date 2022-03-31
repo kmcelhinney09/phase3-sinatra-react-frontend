@@ -62,7 +62,6 @@ function RecipeView() {
 
   return (
     <Container fluid>
-      {console.log(reviewData)}
       <Row>
         <Col md={2}>
           <SideBar />
