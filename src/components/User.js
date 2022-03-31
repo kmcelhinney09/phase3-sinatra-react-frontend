@@ -12,7 +12,7 @@ function User({ user_id, name, inUserBox, setInUserBox, changeInBox, handleChang
     fetch(`${fetchUrl}/users/${user_id}/recipe_box`)
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data)
+       
         setUserRecipeBoxData(data);
         setInUserBox(data.map((recipe) => recipe.id));
       });
